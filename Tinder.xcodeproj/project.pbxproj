@@ -13,6 +13,7 @@
 		2F3BA61C21E8375800548E0C /* Tinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA61A21E8375800548E0C /* Tinder.xcdatamodeld */; };
 		2F3BA61E21E8375A00548E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F3BA61D21E8375A00548E0C /* Assets.xcassets */; };
 		2F3BA62121E8375A00548E0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F3BA61F21E8375A00548E0C /* LaunchScreen.storyboard */; };
+		2F3BA62A21E839CF00548E0C /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA62921E839CF00548E0C /* Extensions+UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2F3BA61D21E8375A00548E0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F3BA62021E8375A00548E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F3BA62221E8375A00548E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F3BA62921E839CF00548E0C /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		2F3BA61221E8375800548E0C /* Tinder */ = {
 			isa = PBXGroup;
 			children = (
+				2F3BA62821E839BC00548E0C /* Extensions */,
 				2F3BA61321E8375800548E0C /* AppDelegate.swift */,
 				2F3BA61521E8375800548E0C /* ViewController.swift */,
 				2F3BA61721E8375800548E0C /* Main.storyboard */,
@@ -65,6 +68,14 @@
 				2F3BA61A21E8375800548E0C /* Tinder.xcdatamodeld */,
 			);
 			path = Tinder;
+			sourceTree = "<group>";
+		};
+		2F3BA62821E839BC00548E0C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2F3BA62921E839CF00548E0C /* Extensions+UIView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +151,7 @@
 			files = (
 				2F3BA61621E8375800548E0C /* ViewController.swift in Sources */,
 				2F3BA61421E8375800548E0C /* AppDelegate.swift in Sources */,
+				2F3BA62A21E839CF00548E0C /* Extensions+UIView.swift in Sources */,
 				2F3BA61C21E8375800548E0C /* Tinder.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
