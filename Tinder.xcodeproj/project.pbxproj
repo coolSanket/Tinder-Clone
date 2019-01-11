@@ -16,6 +16,7 @@
 		2F3BA62A21E839CF00548E0C /* Extensions+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA62921E839CF00548E0C /* Extensions+UIView.swift */; };
 		2F3BA62D21E8E6A000548E0C /* HomeBottomControlStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA62C21E8E6A000548E0C /* HomeBottomControlStackView.swift */; };
 		2F3BA62F21E8EB8300548E0C /* HomeTopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA62E21E8EB8300548E0C /* HomeTopNavigationStackView.swift */; };
+		2F3BA63121E8FB5600548E0C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA63021E8FB5600548E0C /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2F3BA62921E839CF00548E0C /* Extensions+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extensions+UIView.swift"; sourceTree = "<group>"; };
 		2F3BA62C21E8E6A000548E0C /* HomeBottomControlStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomControlStackView.swift; sourceTree = "<group>"; };
 		2F3BA62E21E8EB8300548E0C /* HomeTopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopNavigationStackView.swift; sourceTree = "<group>"; };
+		2F3BA63021E8FB5600548E0C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 			children = (
 				2F3BA62C21E8E6A000548E0C /* HomeBottomControlStackView.swift */,
 				2F3BA62E21E8EB8300548E0C /* HomeTopNavigationStackView.swift */,
+				2F3BA63021E8FB5600548E0C /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F3BA63121E8FB5600548E0C /* CardView.swift in Sources */,
 				2F3BA62F21E8EB8300548E0C /* HomeTopNavigationStackView.swift in Sources */,
 				2F3BA61621E8375800548E0C /* ViewController.swift in Sources */,
 				2F3BA61421E8375800548E0C /* AppDelegate.swift in Sources */,
