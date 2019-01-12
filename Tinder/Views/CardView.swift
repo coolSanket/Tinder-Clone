@@ -13,6 +13,7 @@ class CardView: UIView {
     fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
     fileprivate let informationLabel = UILabel()
     fileprivate let infoBackgroundview = UIView()
+    fileprivate let gradientLayer = CAGradientLayer()
     
     var cardViewModel : CardViewModel! {
         didSet {
@@ -26,31 +27,47 @@ class CardView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        setupLayout()
+    
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        addGestureRecognizer(panGestureRecognizer)
+        
+    }
+    
+    fileprivate func setupLayout() {
         layer.cornerRadius = 10
         clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
         imageView.fillSuperview()
         
-        addSubview(infoBackgroundview)
-        infoBackgroundview.backgroundColor = UIColor.black.withAlphaComponent(0.25)
-        infoBackgroundview.translatesAutoresizingMaskIntoConstraints = false
-        infoBackgroundview.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
+        // add a gradient layer
+        setupGradientLayer()
         
-        infoBackgroundview.addSubview(informationLabel)
+        addSubview(informationLabel)
         informationLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        informationLabel.anchor(top: infoBackgroundview.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16))
+        informationLabel.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16))
         
-        informationLabel.text = "TEST TEST ,TEST"
+        
         informationLabel.textColor = .white
         informationLabel.numberOfLines = 0
-        
-        informationLabel.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
-        
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        addGestureRecognizer(panGestureRecognizer)
-        
+    }
+    
+    
+    fileprivate func setupGradientLayer() {
+        gradientLayer.colors = [UIColor.clear.cgColor,UIColor.black.cgColor]
+        gradientLayer.locations = [0.5,1.1]
+        // here can't use self.frame beacuse it is zero
+        // gradientLayer.frame = self.frame
+        layer.addSublayer(gradientLayer)
+    }
+    
+    
+    override func layoutSubviews() {
+        // self.frame is not zere
+        gradientLayer.frame = self.frame
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +78,10 @@ class CardView: UIView {
     @objc fileprivate func handlePan(gesture : UIPanGestureRecognizer) {
         
         switch gesture.state {
+        case .began :
+            superview?.subviews.forEach({ (subview) in
+                subview.layer.removeAllAnimations()
+            })
         case .changed:
             handleChanged(gesture)
         case.ended :
