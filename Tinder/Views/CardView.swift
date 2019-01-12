@@ -10,9 +10,17 @@ import UIKit
 
 class CardView: UIView {
     
-    let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
-    let informationLabel = UILabel()
-    let infoBackgroundview = UIView()
+    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
+    fileprivate let informationLabel = UILabel()
+    fileprivate let infoBackgroundview = UIView()
+    
+    var cardViewModel : CardViewModel! {
+        didSet {
+            imageView.image = UIImage(named: cardViewModel.imageName)
+            informationLabel.attributedText = cardViewModel.attributedString
+            informationLabel.textAlignment = cardViewModel.textAlignment
+        }
+    }
     
     fileprivate let threshold : CGFloat = 100
 
@@ -78,7 +86,7 @@ class CardView: UIView {
         let translation = gesture.translation(in: nil)
         let shouldDismissCard = translation.x > threshold || translation.x < -threshold
         
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             if shouldDismissCard {
                 let transX : CGFloat = translation.x > 0 ? 1000 : -1000
                 self.frame = CGRect(x: transX, y: 0, width: self.frame.width, height: self.frame.height)
