@@ -16,10 +16,10 @@ class HomeController: UIViewController {
   
     let cardViewModels : [CardViewModel] = {
         let models = [
-            User(name: "Kelly", age: 23, profession: "Music DJ", imageName: "lady5c"),
-            User(name: "Jane", age: 18, profession: "Student", imageName: "lady4c"),
+            User(name: "Kelly", age: 23, profession: "Music DJ", imageNames: ["kelly1","kelly2","kelly3"]),
+            User(name: "Jane", age: 18, profession: "Student", imageNames: ["jane1","jane2","jane3"]),
             Advertiser(title: "Instagram", brandName: "Owned by Facebook", posterPhotoName: "instagram"),
-            User(name: "Jane", age: 18, profession: "Student", imageName: "lady4c")
+            User(name: "Jane", age: 18, profession: "Student", imageNames: ["jane1","jane2","jane3"])
             
         ] as [CardViewModelProtocol]
         
