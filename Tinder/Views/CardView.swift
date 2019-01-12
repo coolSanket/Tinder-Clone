@@ -10,7 +10,9 @@ import UIKit
 
 class CardView: UIView {
     
-    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady").withRenderingMode(.alwaysOriginal))
+    let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
+    let informationLabel = UILabel()
+    let infoBackgroundview = UIView()
     
     fileprivate let threshold : CGFloat = 100
 
@@ -18,8 +20,25 @@ class CardView: UIView {
         super.init(frame: frame)
         layer.cornerRadius = 10
         clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         addSubview(imageView)
         imageView.fillSuperview()
+        
+        addSubview(infoBackgroundview)
+        infoBackgroundview.backgroundColor = UIColor.black.withAlphaComponent(0.25)
+        infoBackgroundview.translatesAutoresizingMaskIntoConstraints = false
+        infoBackgroundview.anchor(top: nil, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
+        
+        infoBackgroundview.addSubview(informationLabel)
+        informationLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        informationLabel.anchor(top: infoBackgroundview.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor, padding: UIEdgeInsets(top: 8, left: 16, bottom: 16, right: 16))
+        
+        informationLabel.text = "TEST TEST ,TEST"
+        informationLabel.textColor = .white
+        informationLabel.numberOfLines = 0
+        
+        informationLabel.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         addGestureRecognizer(panGestureRecognizer)
@@ -61,7 +80,6 @@ class CardView: UIView {
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.2, options: .curveEaseOut, animations: {
             if shouldDismissCard {
-                print(shouldDismissCard)
                 let transX : CGFloat = translation.x > 0 ? 1000 : -1000
                 self.frame = CGRect(x: transX, y: 0, width: self.frame.width, height: self.frame.height)
             }
@@ -71,8 +89,11 @@ class CardView: UIView {
             
         }) { (_) in
             self.transform = .identity
-            self.frame = CGRect(x: 0, y: 0, width: self.superview!.frame.width, height: self.superview!.frame.height)
+            if shouldDismissCard {
+                self.removeFromSuperview()
+            }
         }
     }
     
 }
+
