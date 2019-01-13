@@ -56,21 +56,71 @@ class RegistrationViewController: UIViewController {
         return btn
     }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGradientLayer()
-        // view.backgroundColor = .red
+        setupLayout()
+        setupNotificationObservers()
+        setupTapGesture()
         
-        let stackView = UIStackView(arrangedSubviews: [
-            selectPhotoBtn,
-            nameTextField,
-            emailTextField,
-            passwordTextField,
-            registerButton
-            ])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    fileprivate func setupTapGesture() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+    }
+    
+    @objc fileprivate func handleTap() {
+        self.view.endEditing(true)
         
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.transform = .identity
+        })
+    }
+    
+    fileprivate func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKayboardHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func handleKayboardHide() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.transform = .identity
+        })
+    }
+    
+    @objc fileprivate func handleKeyboardShow(notification : Notification) {
+        guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        let keyboardFrame = value.cgRectValue
+        let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height
+
+        print("Keyboard height : ",keyboardFrame.height)
+        print("Bottom space",bottomSpace)
+        
+        let diff = keyboardFrame.height - bottomSpace
+        view.transform = CGAffineTransform(translationX: 0, y: -diff - 8)
+        
+    }
+    
+    lazy var stackView = UIStackView(arrangedSubviews: [
+        selectPhotoBtn,
+        nameTextField,
+        emailTextField,
+        passwordTextField,
+        registerButton
+        ])
+    
+    
+    fileprivate func setupLayout() {
+
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,8 +128,8 @@ class RegistrationViewController: UIViewController {
         view.addSubview(stackView)
         stackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 32, bottom: 0, right: 32))
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60).isActive = true
-        
     }
+    
     
     fileprivate func setupGradientLayer() {
         let gradientLayer = CAGradientLayer()
