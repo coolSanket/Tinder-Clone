@@ -31,7 +31,14 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupDummyCards()
-        
+        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+    }
+    
+    
+    @objc fileprivate func handleSettings() {
+        print("Show registration page..")
+        let registrationVC = RegistrationViewController()
+        present(registrationVC, animated: true)
     }
     
     fileprivate func setupDummyCards() {
@@ -61,6 +68,8 @@ class HomeController: UIViewController {
         // all view have z-axiz  property
         overAllStackView.bringSubviewToFront(cardDeckView)
     }
+    
+    
     
     
 
