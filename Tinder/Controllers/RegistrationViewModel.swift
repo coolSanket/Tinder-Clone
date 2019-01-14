@@ -10,6 +10,16 @@ import UIKit
 
 class RegistrationViewModel {
     
+    var bindableImage = Bindable<UIImage>()
+    
+//    var image : UIImage? {
+//        didSet {
+//            imageObserver?(image)
+//        }
+//    }
+//
+//    var imageObserver : ((UIImage?) -> ())?
+    
     var name : String?  {
         didSet {
             checkFormValidity()
@@ -28,9 +38,12 @@ class RegistrationViewModel {
     
     fileprivate func checkFormValidity() {
         let isValid = name?.isEmpty == false && email?.isEmpty == false && password?.isEmpty == false
-        formValidObserver?(isValid)
+        bindableIsFormValid.value = isValid
+//        formValidObserver?(isValid)
     }
     
-    var formValidObserver : ((Bool) -> ())?
+//    var formValidObserver : ((Bool) -> ())?
+    
+    var bindableIsFormValid = Bindable<Bool>()
     
 }
