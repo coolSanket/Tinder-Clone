@@ -36,7 +36,7 @@ class RegistrationViewController: UIViewController {
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
         btn.heightAnchor.constraint(equalToConstant: 300).isActive = true
         btn.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
-        // btn.imageView?.contentMode = .scaleAspectFill
+//        btn.imageView?.contentMode = .scaleAspectFill
         btn.clipsToBounds = true
         return btn
     }()
@@ -99,20 +99,17 @@ class RegistrationViewController: UIViewController {
         return btn
     }()
     
+    let registeringHUD = JGProgressHUD(style: .dark)
+    
     @objc fileprivate func handleRegister() {
         self.handleTapDismiss()
-        self.clearTextFields()
         print("Register user...")
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return  }
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+        registrationModel.performRegistration { [weak self] (error) in
+            self?.clearTextFields()
             if let error = error {
-                print(error.localizedDescription)
-                self.showJGHudWithError(error: error)
+                self?.showJGHudWithError(error: error)
                 return
             }
-            print("Successfully registered with id : \(user?.uid ?? "")")
         }
     }
     
@@ -123,6 +120,7 @@ class RegistrationViewController: UIViewController {
     }
     
     fileprivate func showJGHudWithError(error : Error) {
+        registeringHUD.dismiss()
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Failed to register user."
         hud.detailTextLabel.text = "\(error.localizedDescription)"
@@ -143,7 +141,7 @@ class RegistrationViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+        // NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -157,6 +155,17 @@ class RegistrationViewController: UIViewController {
         }
         registrationModel.bindableImage.bind { [unowned self] (image) in
             self.selectPhotoBtn.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+        registrationModel.bindableIsRegistering.bind { [unowned self] (isRegistering) in
+            guard let isRegistering = isRegistering else { return }
+            if isRegistering {
+                self.registeringHUD.textLabel.text = "Registering..."
+                self.registeringHUD.show(in: self.view)
+            }
+            else {
+                self.registeringHUD.dismiss()
+            }
         }
         
     }
@@ -232,3 +241,4 @@ class RegistrationViewController: UIViewController {
     
     
 }
+
