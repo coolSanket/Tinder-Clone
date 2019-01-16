@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CardView: UIView {
     
@@ -20,7 +21,11 @@ class CardView: UIView {
     var cardViewModel : CardViewModel! {
         didSet {
             let imageName = cardViewModel.imageNames.first ?? ""
-            imageView.image = UIImage(named: imageName)
+            // load image from url
+            if let url = URL(string: imageName) {
+                imageView.sd_setImage(with: url)
+            }
+            
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
             
@@ -111,13 +116,13 @@ class CardView: UIView {
         let tapLocation = gesture.location(in: nil)
         let shouldAdvanceToNextPhoto = tapLocation.x > frame.width / 2 ? true : false
         if shouldAdvanceToNextPhoto {
-            imageIndex = cardViewModel.imageNames.count - 1 > imageIndex ? imageIndex + 1 : 0
+//            imageIndex = cardViewModel.imageNames.count - 1 > imageIndex ? imageIndex + 1 : 0
             
-            // imageIndex = min(imageIndex + 1, cardViewModel.imageNames.count - 1)
+             imageIndex = min(imageIndex + 1, cardViewModel.imageNames.count - 1)
         }
         else {
-            imageIndex = imageIndex > 0 ? imageIndex - 1 : cardViewModel.imageNames.count - 1
-            // imageIndex = max(0, imageIndex - 1)
+//            imageIndex = imageIndex > 0 ? imageIndex - 1 : cardViewModel.imageNames.count - 1
+             imageIndex = max(0, imageIndex - 1)
         }
         let imageName = cardViewModel.imageNames[imageIndex]
         imageView.image = UIImage(named: imageName)
