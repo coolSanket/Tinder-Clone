@@ -13,6 +13,7 @@ protocol CardViewModelProtocol {
     func toCardViewModel() -> CardViewModel
 }
 
+
 struct  CardViewModel {
     
     // define the property

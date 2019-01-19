@@ -116,16 +116,15 @@ class CardView: UIView {
         let tapLocation = gesture.location(in: nil)
         let shouldAdvanceToNextPhoto = tapLocation.x > frame.width / 2 ? true : false
         if shouldAdvanceToNextPhoto {
-//            imageIndex = cardViewModel.imageNames.count - 1 > imageIndex ? imageIndex + 1 : 0
-            
              imageIndex = min(imageIndex + 1, cardViewModel.imageNames.count - 1)
         }
         else {
-//            imageIndex = imageIndex > 0 ? imageIndex - 1 : cardViewModel.imageNames.count - 1
              imageIndex = max(0, imageIndex - 1)
         }
-        let imageName = cardViewModel.imageNames[imageIndex]
-        imageView.image = UIImage(named: imageName)
+        let imageUrl = cardViewModel.imageNames[imageIndex]
+        if let url = URL(string: imageUrl) {
+            imageView.sd_setImage(with: url)
+        }
         barStackView.arrangedSubviews.forEach { (v) in
             v.backgroundColor = barDeselectedColor
         }
