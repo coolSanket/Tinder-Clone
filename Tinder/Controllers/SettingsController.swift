@@ -37,6 +37,39 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         imageButton?.setImage(selectedImage?.withRenderingMode(.alwaysOriginal), for: .normal)
         dismiss(animated: true)
         
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Uploading image..."
+        hud.show(in: self.view)
+        let fileName = UUID().uuidString
+        let ref = Storage.storage().reference(withPath: "images/\(fileName)")
+        guard let uploadData =  selectedImage?.jpegData(compressionQuality: 0.7) else { return }
+        ref.putData(uploadData, metadata: nil) { (metadata, error) in
+            
+            if let error = error {
+                hud.dismiss()
+                print(error.localizedDescription)
+                return
+            }
+            
+            ref.downloadURL(completion: { [weak self] (url, error) in
+                hud.dismiss()
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                print(url?.absoluteString ?? "")
+                if imageButton == self?.imageBtn1 {
+                    self?.user?.imageUrl1 = url?.absoluteString
+                }
+                else if imageButton == self?.imageBtn2 {
+                    self?.user?.imageUrl2 = url?.absoluteString
+                }else {
+                    self?.user?.imageUrl3 = url?.absoluteString
+                }
+            })
+            print("Finished uploading image..")
+        }
+        
     }
 
     func createButton(selector : Selector) -> UIButton {
@@ -80,15 +113,21 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     }
     
     fileprivate func loadUserPhotos() {
-        guard let imageUrl = user?.imageUrl1 , let url = URL(string: imageUrl) else { return }
-        SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (image, _, error, _, _, _) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+        setImages(button: imageBtn1, imageUrl: self.user?.imageUrl1)
+        setImages(button: imageBtn2, imageUrl: self.user?.imageUrl2)
+        setImages(button: imageBtn3, imageUrl: self.user?.imageUrl3)
+    }
+    
+    fileprivate func setImages(button : UIButton, imageUrl : String?) {
+        if  let imgUrl = imageUrl , let url = URL(string: imgUrl){
+            SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (image, _, error, _, _, _) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                button.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
             }
-            self.imageBtn1.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         }
-        
     }
     
     fileprivate func setupNavigationItems() {
@@ -110,6 +149,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             "uid" : uid,
             "fullName" : user?.name ?? "",
             "imageUrl1" : user?.imageUrl1 ?? "",
+            "imageUrl2" : user?.imageUrl2 ?? "",
+            "imageUrl3" : user?.imageUrl3 ?? "",
             "age" : user?.age ?? -1,
             "profession" : user?.profession ?? ""
         ]
