@@ -24,6 +24,8 @@
 		2F3BA63C21EB56F200548E0C /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA63B21EB56F200548E0C /* RegistrationViewController.swift */; };
 		2F3BA63E21EB614B00548E0C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA63D21EB614B00548E0C /* CustomTextField.swift */; };
 		2F3BA64021EB842F00548E0C /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA63F21EB842F00548E0C /* RegistrationViewModel.swift */; };
+		2F71EFF521F2E16F00F7FC57 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71EFF421F2E16F00F7FC57 /* SettingsController.swift */; };
+		2F71EFF721F2F22F00F7FC57 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */; };
 		2FAD343921EBA4F000AEE337 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD343821EBA4F000AEE337 /* GoogleService-Info.plist */; };
 		2FAD343B21ECD17B00AEE337 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FAD343A21ECD17B00AEE337 /* Bindable.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		2F3BA63B21EB56F200548E0C /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		2F3BA63D21EB614B00548E0C /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		2F3BA63F21EB842F00548E0C /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		2F71EFF421F2E16F00F7FC57 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		2FAD343821EBA4F000AEE337 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FAD343A21ECD17B00AEE337 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		CBEAE21EE26DCD14D9FF51BD /* Pods_Tinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +122,7 @@
 				2F3BA62E21E8EB8300548E0C /* HomeTopNavigationStackView.swift */,
 				2F3BA63021E8FB5600548E0C /* CardView.swift */,
 				2F3BA63D21EB614B00548E0C /* CustomTextField.swift */,
+				2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 				2F3BA63B21EB56F200548E0C /* RegistrationViewController.swift */,
 				2F3BA63F21EB842F00548E0C /* RegistrationViewModel.swift */,
 				2FAD343A21ECD17B00AEE337 /* Bindable.swift */,
+				2F71EFF421F2E16F00F7FC57 /* SettingsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -310,6 +316,7 @@
 				2F3BA63C21EB56F200548E0C /* RegistrationViewController.swift in Sources */,
 				2F3BA61621E8375800548E0C /* HomeController.swift in Sources */,
 				2F3BA61421E8375800548E0C /* AppDelegate.swift in Sources */,
+				2F71EFF521F2E16F00F7FC57 /* SettingsController.swift in Sources */,
 				2F3BA63421E9A87000548E0C /* User.swift in Sources */,
 				2F3BA62D21E8E6A000548E0C /* HomeBottomControlStackView.swift in Sources */,
 				2FAD343B21ECD17B00AEE337 /* Bindable.swift in Sources */,
@@ -317,6 +324,7 @@
 				2F3BA64021EB842F00548E0C /* RegistrationViewModel.swift in Sources */,
 				2F3BA62A21E839CF00548E0C /* Extensions+UIView.swift in Sources */,
 				2F3BA61C21E8375800548E0C /* Tinder.xcdatamodeld in Sources */,
+				2F71EFF721F2F22F00F7FC57 /* SettingsCell.swift in Sources */,
 				2F3BA63821E9BC4C00548E0C /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

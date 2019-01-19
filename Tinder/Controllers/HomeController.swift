@@ -73,8 +73,9 @@ class HomeController: UIViewController {
     
     @objc fileprivate func handleSettings() {
         print("Show registration page..")
-        let registrationVC = RegistrationViewController()
-        present(registrationVC, animated: true)
+        let settingsVC = SettingsController()
+        let navController = UINavigationController(rootViewController: settingsVC)
+        present(navController, animated: true)
     }
     
     fileprivate func setupFirestoreUserCards() {
