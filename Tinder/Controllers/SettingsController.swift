@@ -11,6 +11,11 @@ import Firebase
 import SDWebImage
 import JGProgressHUD
 
+protocol SettingsControllerDelegate {
+    func didSaveSetting()
+}
+
+
 class CustomImagePickerController: UIImagePickerController {
     var imageButton : UIButton?
 }
@@ -18,6 +23,7 @@ class CustomImagePickerController: UIImagePickerController {
 
 class SettingsController: UITableViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
 
+    var deletate : SettingsControllerDelegate?
     
     lazy var imageBtn1 = createButton(selector: #selector(handleSelectPhoto))
     lazy var imageBtn2 = createButton(selector: #selector(handleSelectPhoto))
@@ -97,19 +103,12 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
     
     var user : User?
     fileprivate func fetchCurrentUser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return  }
-        print(uid)
-        let db = Firestore.firestore().collection("Users").document(uid)
-        db.getDocument {[weak self] (snapshot, error) in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard let dictionary = snapshot?.data() else { return }
-            self?.user = User(dictionary: dictionary)
+        let shared = FirebaseRequest.shared
+        shared.fetchCurrentUser(completion: {[weak self] (user) in
+            self?.user = user
             self?.loadUserPhotos()
             self?.tableView.reloadData()
-        }
+        })
     }
     
     fileprivate func loadUserPhotos() {
@@ -166,6 +165,11 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             }
             hud.dismiss()
             print("user info saved..")
+            
+            self.dismiss(animated: true, completion: {
+                print("Settings controller dismissed")
+                self.deletate?.didSaveSetting()
+            })
         }
     }
     
@@ -235,6 +239,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             ageRangeCell.maxSlider.addTarget(self, action: #selector(handleMaxSliderValueChanged), for: .valueChanged)
             ageRangeCell.minLabel.text = "Min : \(user?.minSeekingAge ?? 18)"
             ageRangeCell.maxLabel.text = "Max : \(user?.maxSeekingAge ?? 35)"
+            ageRangeCell.minSlider.setValue(Float(user?.minSeekingAge ?? 18), animated: true)
+            ageRangeCell.maxSlider.setValue(Float(user?.maxSeekingAge ?? 35), animated: true)
             return ageRangeCell
         }
         
@@ -267,6 +273,11 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
         let ageRangeCell = tableView.cellForRow(at: indexPath) as! AgeRangeCell
         ageRangeCell.minLabel.text = "Min : \(Int(slider.value))"
         self.user?.minSeekingAge = Int(slider.value)
+        if slider.value > ageRangeCell.maxSlider.value {
+            ageRangeCell.maxSlider.setValue(slider.value, animated: true)
+            ageRangeCell.maxLabel.text = "Max : \(Int(slider.value))"
+        }
+        
     }
     
     @objc fileprivate func handleMaxSliderValueChanged(slider : UISlider) {
