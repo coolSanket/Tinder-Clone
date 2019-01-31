@@ -10,7 +10,9 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController , SettingsControllerDelegate , LoginControllerDelegate {
+class HomeController: UIViewController , SettingsControllerDelegate , LoginControllerDelegate, CardViewDelegate {
+    
+    
     
     let bottomControlStackView = HomeBottomControlStackView()
     let topStackView = HomeTopNavigationStackView()
@@ -89,9 +91,12 @@ class HomeController: UIViewController , SettingsControllerDelegate , LoginContr
             guard let documents = snapshot?.documents else { return }
             for document  in documents {
                 let user = User(dictionary: document.data())
-                self.cardViewModels.append(user.toCardViewModel())
-                self.lastFetchedUser = user
-                self.setupCardFromUser(user: user)
+                if user.uid != Auth.auth().currentUser?.uid {
+                    self.setupCardFromUser(user: user)
+                }
+                // self.cardViewModels.append(user.toCardViewModel())
+                // self.lastFetchedUser = user
+
             }
             
             // self.setupFirestoreUserCards()
@@ -100,10 +105,17 @@ class HomeController: UIViewController , SettingsControllerDelegate , LoginContr
     
     fileprivate func setupCardFromUser(user : User) {
         let cardView = CardView()
+        cardView.delegate = self
         cardView.cardViewModel = user.toCardViewModel()
         cardDeckView.addSubview(cardView)
         cardDeckView.sendSubviewToBack(cardView)
         cardView.fillSuperview()
+    }
+    
+    func didTapMoreInfo() {
+        print("Show user detail page")
+        let userDetailVC = UserDetailController()
+        present(userDetailVC, animated: true)
     }
     
     @objc fileprivate func handleSettings() {

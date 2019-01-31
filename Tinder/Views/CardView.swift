@@ -9,8 +9,13 @@
 import UIKit
 import SDWebImage
 
+protocol CardViewDelegate {
+    func didTapMoreInfo()
+}
+
 class CardView: UIView {
     
+    var delegate : CardViewDelegate?
     fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
     fileprivate let informationLabel = UILabel()
     fileprivate let infoBackgroundview = UIView()
@@ -56,6 +61,18 @@ class CardView: UIView {
         
     }
     
+    fileprivate let moreInfoButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "info_icon")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(handleMoreInfo), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc fileprivate func handleMoreInfo() {
+        print("More info")
+        delegate?.didTapMoreInfo()
+    }
+    
     fileprivate func setupLayout() {
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -76,6 +93,9 @@ class CardView: UIView {
         
         informationLabel.textColor = .white
         informationLabel.numberOfLines = 0
+        
+        addSubview(moreInfoButton)
+        moreInfoButton.anchor(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 8, right: 8), size: .init(width: 44, height: 44))
     }
     
     fileprivate let barStackView = UIStackView()
