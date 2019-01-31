@@ -10,12 +10,15 @@ import UIKit
 
 class CustomTextField : UITextField {
     
-    let padding : Int
+    let padding : CGFloat
+    let height : CGFloat
     
-    init(padding : Int) {
+    init(padding : CGFloat, height : CGFloat) {
         self.padding = padding
+        self.height = height
         super.init(frame: .zero)
-        layer.cornerRadius = 22
+        layer.cornerRadius = height / 2
+        self.backgroundColor = .white
     }
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
@@ -27,7 +30,7 @@ class CustomTextField : UITextField {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: 0, height: 44)
+        return CGSize(width: 0, height: height)
     }
     
     required init?(coder aDecoder: NSCoder) {

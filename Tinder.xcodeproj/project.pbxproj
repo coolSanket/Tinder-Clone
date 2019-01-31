@@ -28,6 +28,8 @@
 		2F71EFF721F2F22F00F7FC57 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */; };
 		2F71EFF921F39F9700F7FC57 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71EFF821F39F9700F7FC57 /* AgeRangeCell.swift */; };
 		2F71F01A21F43C0800F7FC57 /* FirebaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71F01921F43C0800F7FC57 /* FirebaseRequest.swift */; };
+		2F91DB392202143700E4C4C4 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91DB382202143700E4C4C4 /* LoginController.swift */; };
+		2F91DB3B2202144700E4C4C4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91DB3A2202144700E4C4C4 /* LoginViewModel.swift */; };
 		2FAD343921EBA4F000AEE337 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD343821EBA4F000AEE337 /* GoogleService-Info.plist */; };
 		2FAD343B21ECD17B00AEE337 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FAD343A21ECD17B00AEE337 /* Bindable.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +58,8 @@
 		2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		2F71EFF821F39F9700F7FC57 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 		2F71F01921F43C0800F7FC57 /* FirebaseRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRequest.swift; sourceTree = "<group>"; };
+		2F91DB382202143700E4C4C4 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		2F91DB3A2202144700E4C4C4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2FAD343821EBA4F000AEE337 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FAD343A21ECD17B00AEE337 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		CBEAE21EE26DCD14D9FF51BD /* Pods_Tinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +149,7 @@
 		2F3BA63521E9BB9600548E0C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2F91DB372202141500E4C4C4 /* Login */,
 				2F3BA61521E8375800548E0C /* HomeController.swift */,
 				2F3BA63B21EB56F200548E0C /* RegistrationViewController.swift */,
 				2F3BA63F21EB842F00548E0C /* RegistrationViewModel.swift */,
@@ -168,6 +173,15 @@
 				2F71F01921F43C0800F7FC57 /* FirebaseRequest.swift */,
 			);
 			path = APIService;
+			sourceTree = "<group>";
+		};
+		2F91DB372202141500E4C4C4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2F91DB382202143700E4C4C4 /* LoginController.swift */,
+				2F91DB3A2202144700E4C4C4 /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		C2CC85D225721C35CA7DC672 /* Pods */ = {
@@ -324,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F91DB392202143700E4C4C4 /* LoginController.swift in Sources */,
 				2F3BA63A21E9E94C00548E0C /* Advertiser.swift in Sources */,
 				2F3BA63121E8FB5600548E0C /* CardView.swift in Sources */,
 				2F3BA62F21E8EB8300548E0C /* HomeTopNavigationStackView.swift in Sources */,
@@ -331,6 +346,7 @@
 				2F3BA61621E8375800548E0C /* HomeController.swift in Sources */,
 				2F71EFF921F39F9700F7FC57 /* AgeRangeCell.swift in Sources */,
 				2F3BA61421E8375800548E0C /* AppDelegate.swift in Sources */,
+				2F91DB3B2202144700E4C4C4 /* LoginViewModel.swift in Sources */,
 				2F71EFF521F2E16F00F7FC57 /* SettingsController.swift in Sources */,
 				2F3BA63421E9A87000548E0C /* User.swift in Sources */,
 				2F3BA62D21E8E6A000548E0C /* HomeBottomControlStackView.swift in Sources */,

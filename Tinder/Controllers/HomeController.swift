@@ -10,10 +10,8 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController , SettingsControllerDelegate {
+class HomeController: UIViewController , SettingsControllerDelegate , LoginControllerDelegate {
     
-    
-
     let bottomControlStackView = HomeBottomControlStackView()
     let topStackView = HomeTopNavigationStackView()
     let cardDeckView = UIView()
@@ -30,6 +28,23 @@ class HomeController: UIViewController , SettingsControllerDelegate {
         
         fetchCurrentUser()
         
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print("View did appear")
+        if Auth.auth().currentUser == nil {
+            let loginController = LoginController()
+            loginController.delegate = self
+            let navController = UINavigationController(rootViewController: loginController)
+            present(navController, animated: true, completion: nil)
+        }
+    }
+    
+    func didFinishLoggingIn() {
+        fetchCurrentUser()
     }
     
     fileprivate var user : User?

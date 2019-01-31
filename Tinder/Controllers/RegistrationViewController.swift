@@ -49,7 +49,7 @@ class RegistrationViewController: UIViewController {
     }
 
     let nameTextField : CustomTextField = {
-        let textField = CustomTextField(padding: 16)
+        let textField = CustomTextField(padding: 16, height: 44)
         textField.placeholder = "Name"
         textField.backgroundColor = .white
         textField.addTarget(self, action: #selector(handleTextChanged), for: .editingChanged)
@@ -57,7 +57,7 @@ class RegistrationViewController: UIViewController {
     }()
     
     let emailTextField : CustomTextField = {
-        let textField = CustomTextField(padding: 16)
+        let textField = CustomTextField(padding: 16, height: 44)
         textField.placeholder = "Email"
         textField.backgroundColor = .white
         textField.keyboardType = .emailAddress
@@ -66,7 +66,7 @@ class RegistrationViewController: UIViewController {
     }()
     
     let passwordTextField : CustomTextField = {
-        let textField = CustomTextField(padding: 16)
+        let textField = CustomTextField(padding: 16, height: 44)
         textField.placeholder = "Password"
         textField.backgroundColor = .white
         textField.isSecureTextEntry = true
@@ -216,9 +216,23 @@ class RegistrationViewController: UIViewController {
         registerButton
         ])
     
+    let goToLoginPageButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Go to login page", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(handleGoToLoginPage), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc fileprivate func handleGoToLoginPage() {
+        let loginVC = LoginController()
+        navigationController?.pushViewController(loginVC, animated: true)
+    }
     
     fileprivate func setupLayout() {
-
+        // hide navigation bar
+        navigationController?.isNavigationBarHidden = true
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -226,6 +240,9 @@ class RegistrationViewController: UIViewController {
         view.addSubview(stackView)
         stackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 32, bottom: 0, right: 32))
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60).isActive = true
+        
+        view.addSubview(goToLoginPageButton)
+        goToLoginPageButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     
