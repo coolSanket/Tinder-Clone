@@ -33,6 +33,7 @@
 		2F91DB3E22029EDF00E4C4C4 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F91DB3D22029EDF00E4C4C4 /* UserDetailController.swift */; };
 		2FAD343921EBA4F000AEE337 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD343821EBA4F000AEE337 /* GoogleService-Info.plist */; };
 		2FAD343B21ECD17B00AEE337 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FAD343A21ECD17B00AEE337 /* Bindable.swift */; };
+		2FB0E0E92205D99600F6CADD /* SwipingPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB0E0E82205D99600F6CADD /* SwipingPhotosController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		2F91DB3D22029EDF00E4C4C4 /* UserDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
 		2FAD343821EBA4F000AEE337 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FAD343A21ECD17B00AEE337 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		2FB0E0E82205D99600F6CADD /* SwipingPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingPhotosController.swift; sourceTree = "<group>"; };
 		CBEAE21EE26DCD14D9FF51BD /* Pods_Tinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D81D8F7308C37A4F19922131 /* Pods-Tinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tinder/Pods-Tinder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -191,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				2F91DB3D22029EDF00E4C4C4 /* UserDetailController.swift */,
+				2FB0E0E82205D99600F6CADD /* SwipingPhotosController.swift */,
 			);
 			path = "User Details";
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				2F71EFF721F2F22F00F7FC57 /* SettingsCell.swift in Sources */,
 				2F91DB3E22029EDF00E4C4C4 /* UserDetailController.swift in Sources */,
 				2F71F01A21F43C0800F7FC57 /* FirebaseRequest.swift in Sources */,
+				2FB0E0E92205D99600F6CADD /* SwipingPhotosController.swift in Sources */,
 				2F3BA63821E9BC4C00548E0C /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

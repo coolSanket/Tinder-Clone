@@ -17,7 +17,7 @@ protocol CardViewModelProtocol {
 struct  CardViewModel {
     
     // define the property
-    let imageNames : [String]
+    let imageUrls : [String]
     let attributedString : NSAttributedString
     let textAlignment : NSTextAlignment
     

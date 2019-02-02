@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 protocol CardViewDelegate {
-    func didTapMoreInfo()
+    func didTapMoreInfo(cardViewModel : CardViewModel)
 }
 
 class CardView: UIView {
@@ -25,7 +25,7 @@ class CardView: UIView {
     
     var cardViewModel : CardViewModel! {
         didSet {
-            let imageName = cardViewModel.imageNames.first ?? ""
+            let imageName = cardViewModel.imageUrls.first ?? ""
             // load image from url
             if let url = URL(string: imageName) {
                 imageView.sd_setImage(with: url)
@@ -34,7 +34,7 @@ class CardView: UIView {
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
             
-            let barViewCount = cardViewModel.imageNames.count
+            let barViewCount = cardViewModel.imageUrls.count
             
             (0..<barViewCount).forEach { (_) in
                 let barView = UIView()
@@ -70,7 +70,7 @@ class CardView: UIView {
     
     @objc fileprivate func handleMoreInfo() {
         print("More info")
-        delegate?.didTapMoreInfo()
+        delegate?.didTapMoreInfo(cardViewModel: self.cardViewModel)
     }
     
     fileprivate func setupLayout() {
@@ -136,12 +136,12 @@ class CardView: UIView {
         let tapLocation = gesture.location(in: nil)
         let shouldAdvanceToNextPhoto = tapLocation.x > frame.width / 2 ? true : false
         if shouldAdvanceToNextPhoto {
-             imageIndex = min(imageIndex + 1, cardViewModel.imageNames.count - 1)
+             imageIndex = min(imageIndex + 1, cardViewModel.imageUrls.count - 1)
         }
         else {
              imageIndex = max(0, imageIndex - 1)
         }
-        let imageUrl = cardViewModel.imageNames[imageIndex]
+        let imageUrl = cardViewModel.imageUrls[imageIndex]
         if let url = URL(string: imageUrl) {
             imageView.sd_setImage(with: url)
         }

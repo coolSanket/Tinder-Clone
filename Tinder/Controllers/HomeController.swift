@@ -10,7 +10,9 @@ import UIKit
 import Firebase
 import JGProgressHUD
 
-class HomeController: UIViewController , SettingsControllerDelegate , LoginControllerDelegate, CardViewDelegate {
+class HomeController: UIViewController, SettingsControllerDelegate , LoginControllerDelegate, CardViewDelegate {
+    
+    
     
     
     
@@ -94,12 +96,7 @@ class HomeController: UIViewController , SettingsControllerDelegate , LoginContr
                 if user.uid != Auth.auth().currentUser?.uid {
                     self.setupCardFromUser(user: user)
                 }
-                // self.cardViewModels.append(user.toCardViewModel())
-                // self.lastFetchedUser = user
-
             }
-            
-            // self.setupFirestoreUserCards()
         }
     }
     
@@ -112,9 +109,9 @@ class HomeController: UIViewController , SettingsControllerDelegate , LoginContr
         cardView.fillSuperview()
     }
     
-    func didTapMoreInfo() {
-        print("Show user detail page")
+    func didTapMoreInfo(cardViewModel: CardViewModel) {
         let userDetailVC = UserDetailController()
+        userDetailVC.cardViewModel = cardViewModel
         present(userDetailVC, animated: true)
     }
     
