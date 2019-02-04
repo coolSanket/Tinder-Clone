@@ -11,7 +11,7 @@ import SDWebImage
 
 class UserDetailController: UIViewController , UIScrollViewDelegate {
     
-    let swipingPhotoController = SwipingPhotosController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    let swipingPhotoController = SwipingPhotosController()
     
     var cardViewModel : CardViewModel! {
         didSet {

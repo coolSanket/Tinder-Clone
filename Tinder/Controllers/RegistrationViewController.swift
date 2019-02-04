@@ -20,6 +20,7 @@ extension RegistrationViewController : UIImagePickerControllerDelegate , UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
         registrationModel.bindableImage.value = image
+        registrationModel.checkFormValidity()
         dismiss(animated: true)
     }
 }

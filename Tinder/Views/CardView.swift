@@ -16,7 +16,10 @@ protocol CardViewDelegate {
 class CardView: UIView {
     
     var delegate : CardViewDelegate?
-    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
+//    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
+
+    fileprivate let swipingPhotoController = SwipingPhotosController(isCardViewMode: true)
+    
     fileprivate let informationLabel = UILabel()
     fileprivate let infoBackgroundview = UIView()
     fileprivate let gradientLayer = CAGradientLayer()
@@ -26,11 +29,11 @@ class CardView: UIView {
     var cardViewModel : CardViewModel! {
         didSet {
             let imageName = cardViewModel.imageUrls.first ?? ""
-            // load image from url
-            if let url = URL(string: imageName) {
-                imageView.sd_setImage(with: url)
-            }
+//            if let url = URL(string: imageName) {
+//                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder").withRenderingMode(.alwaysOriginal), options: .continueInBackground)
+//            }
             
+            swipingPhotoController.cardViewModel = cardViewModel
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
             
@@ -76,13 +79,13 @@ class CardView: UIView {
     fileprivate func setupLayout() {
         layer.cornerRadius = 10
         clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        addSubview(imageView)
-        imageView.fillSuperview()
         
-        setupBarsStackView()
+        let swipingImageView = swipingPhotoController.view!
         
-        // add a gradient layer
+        addSubview(swipingImageView)
+        swipingImageView.fillSuperview()
+        
+       //  setupBarsStackView()
         setupGradientLayer()
         
         addSubview(informationLabel)
@@ -114,8 +117,6 @@ class CardView: UIView {
     fileprivate func setupGradientLayer() {
         gradientLayer.colors = [UIColor.clear.cgColor,UIColor.black.cgColor]
         gradientLayer.locations = [0.5,1.1]
-        // here can't use self.frame beacuse it is zero
-        // gradientLayer.frame = self.frame
         layer.addSublayer(gradientLayer)
     }
     
@@ -142,9 +143,9 @@ class CardView: UIView {
              imageIndex = max(0, imageIndex - 1)
         }
         let imageUrl = cardViewModel.imageUrls[imageIndex]
-        if let url = URL(string: imageUrl) {
-            imageView.sd_setImage(with: url)
-        }
+//        if let url = URL(string: imageUrl) {
+//            imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder").withRenderingMode(.alwaysOriginal), options: .continueInBackground)
+//        }
         barStackView.arrangedSubviews.forEach { (v) in
             v.backgroundColor = barDeselectedColor
         }

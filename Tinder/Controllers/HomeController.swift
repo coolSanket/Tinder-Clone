@@ -78,8 +78,9 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Fetching users"
         hud.show(in: self.view)
-        
-        guard let minSeekingAge = user?.minSeekingAge, let maxSeekingAge = user?.maxSeekingAge else { return  }
+
+        let minSeekingAge = user?.minSeekingAge ?? 18
+        let maxSeekingAge = user?.maxSeekingAge ?? 50
         
         // implement pagignation
         print("Fetching users from firestore..")

@@ -22,6 +22,10 @@ class CustomImagePickerController: UIImagePickerController {
 
 
 class SettingsController: UITableViewController, UIImagePickerControllerDelegate , UINavigationControllerDelegate {
+    
+    
+    static let minSeekingAge = 18
+    static let maxSeekingAge = 50
 
     var deletate : SettingsControllerDelegate?
     
@@ -157,8 +161,8 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             "imageUrl3" : user?.imageUrl3 ?? "",
             "age" : user?.age ?? -1,
             "profession" : user?.profession ?? "",
-            "minSeekingAge" : user?.minSeekingAge ?? 18,
-            "maxSeekingAge" : user?.maxSeekingAge ?? 35
+            "minSeekingAge" : user?.minSeekingAge ?? SettingsController.minSeekingAge,
+            "maxSeekingAge" : user?.maxSeekingAge ?? SettingsController.maxSeekingAge
         ]
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Saving Info"
@@ -242,10 +246,10 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             let ageRangeCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
             ageRangeCell.minSlider.addTarget(self, action: #selector(handleMinSliderValueChanged), for: .valueChanged)
             ageRangeCell.maxSlider.addTarget(self, action: #selector(handleMaxSliderValueChanged), for: .valueChanged)
-            ageRangeCell.minLabel.text = "Min : \(user?.minSeekingAge ?? 18)"
-            ageRangeCell.maxLabel.text = "Max : \(user?.maxSeekingAge ?? 35)"
-            ageRangeCell.minSlider.setValue(Float(user?.minSeekingAge ?? 18), animated: true)
-            ageRangeCell.maxSlider.setValue(Float(user?.maxSeekingAge ?? 35), animated: true)
+            ageRangeCell.minLabel.text = "Min : \(user?.minSeekingAge ?? SettingsController.minSeekingAge)"
+            ageRangeCell.maxLabel.text = "Max : \(user?.maxSeekingAge ?? SettingsController.maxSeekingAge)"
+            ageRangeCell.minSlider.setValue(Float(user?.minSeekingAge ?? SettingsController.minSeekingAge), animated: true)
+            ageRangeCell.maxSlider.setValue(Float(user?.maxSeekingAge ?? SettingsController.maxSeekingAge), animated: true)
             return ageRangeCell
         }
         
