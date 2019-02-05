@@ -28,7 +28,7 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
         bottomControlStackView.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         bottomControlStackView.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
-        
+        bottomControlStackView.dislikeButton.addTarget(self, action: #selector(handleDislike), for: .touchUpInside)
         
         
         fetchCurrentUser()
@@ -85,6 +85,7 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
         // implement pagignation
         print("Fetching users from firestore..")
         let query = Firestore.firestore().collection("Users").whereField("age", isGreaterThanOrEqualTo: minSeekingAge).whereField("age", isLessThanOrEqualTo: maxSeekingAge)
+        topCardView = nil
         query.getDocuments { (snapshot, error) in
             hud.dismiss()
             if let error = error {
@@ -112,20 +113,43 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
     var topCardView : CardView?
     @objc fileprivate func handleLike() {
         print("Remove card from stack")
+        performSwipeAnimation(toValue: 700, angle: 15)
+    }
+    
+    @objc fileprivate func handleDislike() {
+        performSwipeAnimation(toValue: -700, angle: -15)
+    }
+    
+    fileprivate func performSwipeAnimation(toValue : CGFloat,angle : CGFloat) {
         
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-            self.topCardView?.frame = CGRect(x: 800, y: 0, width: self.topCardView!.frame.width, height: self.topCardView!.frame.height)
-            let angle = 15 * CGFloat.pi / 180
-            self.topCardView?.transform = CGAffineTransform(rotationAngle: angle)
-        }) { (_) in
-            self.topCardView?.removeFromSuperview()
-            self.topCardView = self.topCardView?.nextCardView
+        let duration = 0.4
+        let translatonAnimation = CABasicAnimation(keyPath: "position.x")
+        translatonAnimation.toValue = toValue
+        translatonAnimation.duration = duration
+        translatonAnimation.fillMode = .forwards
+        translatonAnimation.isRemovedOnCompletion = false
+        translatonAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = angle * CGFloat.pi / 180
+        rotationAnimation.duration = duration
+        
+        let cardView = topCardView
+        topCardView = cardView?.nextCardView
+        CATransaction.setCompletionBlock {
+            cardView?.removeFromSuperview()
         }
+        cardView?.layer.add(translatonAnimation, forKey: "translation")
+        cardView?.layer.add(rotationAnimation, forKey: "rotation")
+        
+        CATransaction.commit()
+        
     }
     
     func didRemoveCardView(cardView: CardView) {
         topCardView = topCardView?.nextCardView
     }
+    
     
     fileprivate func setupCardFromUser(user : User) -> CardView {
         let cardView = CardView()
