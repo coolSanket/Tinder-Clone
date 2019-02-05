@@ -14,8 +14,6 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
     
     
     
-    
-    
     let bottomControlStackView = HomeBottomControlStackView()
     let topStackView = HomeTopNavigationStackView()
     let cardDeckView = UIView()
@@ -29,11 +27,13 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
         
         bottomControlStackView.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        bottomControlStackView.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
+        
+        
         
         fetchCurrentUser()
         
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -91,24 +91,54 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
                 print(error.localizedDescription)
                 return
             }
+            
+            // use linked list for next card
+            var prevCardView : CardView?
             guard let documents = snapshot?.documents else { return }
             for document  in documents {
                 let user = User(dictionary: document.data())
                 if user.uid != Auth.auth().currentUser?.uid {
-                    self.setupCardFromUser(user: user)
+                    let cardView = self.setupCardFromUser(user: user)
+                    prevCardView?.nextCardView = cardView
+                    prevCardView = cardView
+                    if self.topCardView == nil {
+                        self.topCardView = cardView
+                    }
                 }
             }
         }
     }
     
-    fileprivate func setupCardFromUser(user : User) {
+    var topCardView : CardView?
+    @objc fileprivate func handleLike() {
+        print("Remove card from stack")
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+            self.topCardView?.frame = CGRect(x: 800, y: 0, width: self.topCardView!.frame.width, height: self.topCardView!.frame.height)
+            let angle = 15 * CGFloat.pi / 180
+            self.topCardView?.transform = CGAffineTransform(rotationAngle: angle)
+        }) { (_) in
+            self.topCardView?.removeFromSuperview()
+            self.topCardView = self.topCardView?.nextCardView
+        }
+    }
+    
+    func didRemoveCardView(cardView: CardView) {
+        topCardView = topCardView?.nextCardView
+    }
+    
+    fileprivate func setupCardFromUser(user : User) -> CardView {
         let cardView = CardView()
         cardView.delegate = self
         cardView.cardViewModel = user.toCardViewModel()
         cardDeckView.addSubview(cardView)
         cardDeckView.sendSubviewToBack(cardView)
         cardView.fillSuperview()
+        return cardView
     }
+    
+    
+    
     
     func didTapMoreInfo(cardViewModel: CardViewModel) {
         let userDetailVC = UserDetailController()

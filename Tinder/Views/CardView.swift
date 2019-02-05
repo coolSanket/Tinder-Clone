@@ -11,13 +11,14 @@ import SDWebImage
 
 protocol CardViewDelegate {
     func didTapMoreInfo(cardViewModel : CardViewModel)
+    func didRemoveCardView(cardView : CardView)
 }
 
 class CardView: UIView {
     
+    var nextCardView : CardView?
+    
     var delegate : CardViewDelegate?
-//    fileprivate let imageView = UIImageView(image: #imageLiteral(resourceName: "lady5c").withRenderingMode(.alwaysOriginal))
-
     fileprivate let swipingPhotoController = SwipingPhotosController(isCardViewMode: true)
     
     fileprivate let informationLabel = UILabel()
@@ -28,11 +29,7 @@ class CardView: UIView {
     
     var cardViewModel : CardViewModel! {
         didSet {
-            let imageName = cardViewModel.imageUrls.first ?? ""
-//            if let url = URL(string: imageName) {
-//                imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder").withRenderingMode(.alwaysOriginal), options: .continueInBackground)
-//            }
-            
+            let _ = cardViewModel.imageUrls.first ?? ""
             swipingPhotoController.cardViewModel = cardViewModel
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
@@ -142,10 +139,7 @@ class CardView: UIView {
         else {
              imageIndex = max(0, imageIndex - 1)
         }
-        let imageUrl = cardViewModel.imageUrls[imageIndex]
-//        if let url = URL(string: imageUrl) {
-//            imageView.sd_setImage(with: url, placeholderImage: #imageLiteral(resourceName: "photo_placeholder").withRenderingMode(.alwaysOriginal), options: .continueInBackground)
-//        }
+        
         barStackView.arrangedSubviews.forEach { (v) in
             v.backgroundColor = barDeselectedColor
         }
@@ -197,6 +191,8 @@ class CardView: UIView {
             self.transform = .identity
             if shouldDismissCard {
                 self.removeFromSuperview()
+                // reset top card view
+                self.delegate?.didRemoveCardView(cardView: self)
             }
         }
     }
