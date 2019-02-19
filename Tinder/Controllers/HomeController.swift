@@ -111,17 +111,56 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
     }
     
     var topCardView : CardView?
-    @objc fileprivate func handleLike() {
+    
+    @objc func handleLike() {
         print("Remove card from stack")
+        saveSwipeInfoToFirebase(isLiked: true)
         performSwipeAnimation(toValue: 700, angle: 15)
     }
     
-    @objc fileprivate func handleDislike() {
+    fileprivate func saveSwipeInfoToFirebase(isLiked : Bool) {
+        print("saving swipe info to firestore")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let cardUID = topCardView?.cardViewModel.uid else { return }
+        let counter = isLiked ? 1 : 0
+        let documentData = [cardUID : counter]
+        
+        Firestore.firestore().collection("SwipesInfo").document(uid)
+            .getDocument { (snapshot, error) in
+                if let error = error {
+                    print(" Failed to fetch swipe data = ",error.localizedDescription)
+                    return
+                }
+                if snapshot?.exists == true {
+                    Firestore.firestore().collection("SwipesInfo").document(uid)
+                        .updateData(documentData) { (error) in
+                            if let error = error {
+                                print("Failed to save swipe data ",error)
+                                return
+                            }
+                    }
+                    print("successfully updated swipe data...")
+                }
+                else {
+                    Firestore.firestore().collection("SwipesInfo").document(uid)
+                        .setData(documentData) { (error) in
+                            if let error = error {
+                                print("Failed to save swipe data ",error)
+                                return
+                            }
+                    }
+                    print("successfully saved swipe data...")
+                }
+        }
+        
+    }
+    
+    @objc func handleDislike() {
+        saveSwipeInfoToFirebase(isLiked: false)
         performSwipeAnimation(toValue: -700, angle: -15)
     }
     
     fileprivate func performSwipeAnimation(toValue : CGFloat,angle : CGFloat) {
-        
         let duration = 0.4
         let translatonAnimation = CABasicAnimation(keyPath: "position.x")
         translatonAnimation.toValue = toValue
@@ -211,10 +250,5 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
         overAllStackView.bringSubviewToFront(cardDeckView)
     }
     
-    
-    
-    
-
-
 }
 
