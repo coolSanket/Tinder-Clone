@@ -11,6 +11,22 @@ import UIKit
 
 class MatchView: UIView {
     
+    let itsMatchImageView : UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "its_match"))
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFit
+        return iv
+    }()
+    
+    let descriptionLabel : UILabel = {
+        let label = UILabel()
+        label.text = "You and X have liked \n each other"
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.numberOfLines = 2
+        return label
+    }()
     
     let currentUserImageView : UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "lady4c"))
@@ -26,6 +42,20 @@ class MatchView: UIView {
         return iv
     }()
     
+    let sendMessageButton : SendMessageButton = {
+        let button = SendMessageButton(type: .system)
+        button.setTitle("Send Message", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    
+    let keepSwippingButton : KeepSwippingButton = {
+        let button = KeepSwippingButton(type: .system)
+        button.setTitle("Keep Swipping", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupBlurView()
@@ -36,6 +66,10 @@ class MatchView: UIView {
     fileprivate func setupLayout() {
         addSubview(currentUserImageView)
         addSubview(likedUserImageView)
+        addSubview(descriptionLabel)
+        addSubview(itsMatchImageView)
+        addSubview(sendMessageButton)
+        addSubview(keepSwippingButton)
         
         currentUserImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: centerXAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16), size: .init(width: 140, height: 140))
         currentUserImageView.layer.cornerRadius = 140/2
@@ -49,6 +83,16 @@ class MatchView: UIView {
         likedUserImageView.layer.borderWidth = 2
         likedUserImageView.layer.borderColor = UIColor.white.cgColor
         likedUserImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        descriptionLabel.anchor(top: nil, leading: nil, bottom: likedUserImageView.topAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 32, right: 0), size: .init(width: 0, height: 60))
+        descriptionLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        itsMatchImageView.anchor(top: nil, leading: nil, bottom: descriptionLabel.topAnchor, trailing: nil, padding: .init(top: 0, left: 0, bottom: 32, right: 0), size: .init(width: 0, height: 54))
+        itsMatchImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+        sendMessageButton.anchor(top: currentUserImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 32, left: 48, bottom: 0, right: 48),size: .init(width: 0, height: 54))
+        
+        keepSwippingButton.anchor(top: sendMessageButton.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 16, left: 48, bottom: 0, right: 48),size: .init(width: 0, height: 54))
     }
     
     let blurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .dark))

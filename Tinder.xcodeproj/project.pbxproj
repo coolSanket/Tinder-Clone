@@ -25,6 +25,8 @@
 		2F3BA63E21EB614B00548E0C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA63D21EB614B00548E0C /* CustomTextField.swift */; };
 		2F3BA64021EB842F00548E0C /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3BA63F21EB842F00548E0C /* RegistrationViewModel.swift */; };
 		2F45C117221D9B5E00DF14C3 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45C116221D9B5E00DF14C3 /* MatchView.swift */; };
+		2F45C119221DAE8000DF14C3 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45C118221DAE8000DF14C3 /* SendMessageButton.swift */; };
+		2F45C11B221DB2AC00DF14C3 /* KeepSwippingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F45C11A221DB2AC00DF14C3 /* KeepSwippingButton.swift */; };
 		2F4823C322089546009D7DA9 /* PhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4823C222089546009D7DA9 /* PhotoController.swift */; };
 		2F71EFF521F2E16F00F7FC57 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71EFF421F2E16F00F7FC57 /* SettingsController.swift */; };
 		2F71EFF721F2F22F00F7FC57 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */; };
@@ -59,6 +61,8 @@
 		2F3BA63D21EB614B00548E0C /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		2F3BA63F21EB842F00548E0C /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		2F45C116221D9B5E00DF14C3 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		2F45C118221DAE8000DF14C3 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
+		2F45C11A221DB2AC00DF14C3 /* KeepSwippingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwippingButton.swift; sourceTree = "<group>"; };
 		2F4823C222089546009D7DA9 /* PhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoController.swift; sourceTree = "<group>"; };
 		2F71EFF421F2E16F00F7FC57 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				2F71EFF621F2F22F00F7FC57 /* SettingsCell.swift */,
 				2F71EFF821F39F9700F7FC57 /* AgeRangeCell.swift */,
 				2F45C116221D9B5E00DF14C3 /* MatchView.swift */,
+				2F45C118221DAE8000DF14C3 /* SendMessageButton.swift */,
+				2F45C11A221DB2AC00DF14C3 /* KeepSwippingButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,10 +368,12 @@
 				2F4823C322089546009D7DA9 /* PhotoController.swift in Sources */,
 				2F3BA63A21E9E94C00548E0C /* Advertiser.swift in Sources */,
 				2F3BA63121E8FB5600548E0C /* CardView.swift in Sources */,
+				2F45C119221DAE8000DF14C3 /* SendMessageButton.swift in Sources */,
 				2F3BA62F21E8EB8300548E0C /* HomeTopNavigationStackView.swift in Sources */,
 				2F3BA63C21EB56F200548E0C /* RegistrationViewController.swift in Sources */,
 				2F3BA61621E8375800548E0C /* HomeController.swift in Sources */,
 				2F71EFF921F39F9700F7FC57 /* AgeRangeCell.swift in Sources */,
+				2F45C11B221DB2AC00DF14C3 /* KeepSwippingButton.swift in Sources */,
 				2F3BA61421E8375800548E0C /* AppDelegate.swift in Sources */,
 				2F91DB3B2202144700E4C4C4 /* LoginViewModel.swift in Sources */,
 				2F45C117221D9B5E00DF14C3 /* MatchView.swift in Sources */,
