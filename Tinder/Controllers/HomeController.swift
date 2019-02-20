@@ -81,6 +81,9 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
     
     
     @objc fileprivate func handleRefresh() {
+        cardDeckView.subviews.forEach { (v) in
+            v.removeFromSuperview()
+        }
         fetchUsersFromFirestore()
     }
     
@@ -159,8 +162,10 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
                                 return
                             }
                     }
+                    if isLiked {
+                        self.checkIfMatchExist(cardUID: cardUID)
+                    }
                     print("successfully updated swipe data...")
-                    self.checkIfMatchExist(cardUID: cardUID)
                 }
                 else {
                     Firestore.firestore().collection("SwipesInfo").document(uid)
@@ -170,10 +175,14 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
                                 return
                             }
                     }
+                    if isLiked {
+                        self.checkIfMatchExist(cardUID: cardUID)
+                    }
                     print("successfully saved swipe data...")
-                    self.checkIfMatchExist(cardUID: cardUID)
                 }
         }
+        
+        
         
     }
     
@@ -194,16 +203,21 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
             let isMatched = data[uid] as? Int == 1
             if isMatched {
                 print("Matched....")
-                let hud = JGProgressHUD(style: .dark)
-                hud.textLabel.text = "Found a match."
-                hud.show(in: self.view)
-                hud.dismiss(afterDelay: 4)
+                self.presentMatchView(cardUID: cardUID)
             }
             else {
                 print("No Matched...")
             }
                 
         }
+    }
+    
+    
+    fileprivate func presentMatchView(cardUID : String) {
+        print("Presenting match view...")
+        let redView = MatchView()
+        view.addSubview(redView)
+        redView.fillSuperview()
     }
     
     @objc func handleDislike() {
