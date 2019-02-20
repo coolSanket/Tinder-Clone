@@ -60,6 +60,40 @@ class MatchView: UIView {
         super.init(frame: frame)
         setupBlurView()
         setupLayout()
+        
+        setupAnimation()
+    }
+    
+    fileprivate func setupAnimation() {
+        let angle : CGFloat = 30 * CGFloat.pi / 180
+        self.currentUserImageView.transform = CGAffineTransform(rotationAngle: -angle).concatenating(CGAffineTransform(translationX: 200, y: 0))
+        
+        self.likedUserImageView.transform = CGAffineTransform(rotationAngle: angle).concatenating(CGAffineTransform(translationX: -200, y: 0))
+        
+        self.sendMessageButton.transform = CGAffineTransform(translationX: -500, y: 0)
+        self.keepSwippingButton.transform = CGAffineTransform(translationX: 500, y: 0)
+        
+        UIView.animateKeyframes(withDuration: 0.8, delay: 0, options: .calculationModeCubic, animations: {
+            
+            // animation 1
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3, animations: {
+                self.currentUserImageView.transform = CGAffineTransform(rotationAngle: -angle)
+                self.likedUserImageView.transform = CGAffineTransform(rotationAngle: angle)
+            })
+            
+            // animation 2
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.3, animations: {
+                self.currentUserImageView.transform = .identity
+                self.likedUserImageView.transform = .identity
+            })
+            
+        }) { (_) in
+            
+        }
+        UIView.animate(withDuration: 0.4, delay: 0.5, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.3, options: .curveEaseOut, animations: {
+            self.sendMessageButton.transform = .identity
+            self.keepSwippingButton.transform = .identity
+        })
     }
     
     
