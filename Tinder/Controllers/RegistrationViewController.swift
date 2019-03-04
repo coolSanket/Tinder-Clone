@@ -219,7 +219,7 @@ class RegistrationViewController: UIViewController {
     
     let goToLoginPageButton : UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Go to login page", for: .normal)
+        button.setTitle("Sign in", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(handleGoToLoginPage), for: .touchUpInside)

@@ -162,7 +162,9 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             "age" : user?.age ?? -1,
             "profession" : user?.profession ?? "",
             "minSeekingAge" : user?.minSeekingAge ?? SettingsController.minSeekingAge,
-            "maxSeekingAge" : user?.maxSeekingAge ?? SettingsController.maxSeekingAge
+            "maxSeekingAge" : user?.maxSeekingAge ?? SettingsController.maxSeekingAge,
+            "bio" : user?.bio ?? ""
+            
         ]
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Saving Info"
@@ -272,6 +274,7 @@ class SettingsController: UITableViewController, UIImagePickerControllerDelegate
             }
         default:
             cell.textField.placeholder = "Enter Bio"
+            cell.textField.text = user?.bio ?? ""
         }
         return cell
     }

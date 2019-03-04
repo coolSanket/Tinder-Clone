@@ -21,6 +21,7 @@ struct User : CardViewModelProtocol {
     var uid : String?
     var minSeekingAge : Int?
     var maxSeekingAge : Int?
+    var bio : String?
     
     init(dictionary : [String : Any]) {
         // initialize user here
@@ -33,6 +34,7 @@ struct User : CardViewModelProtocol {
         self.imageUrl3 = dictionary["imageUrl3"] as? String
         self.minSeekingAge = dictionary["minSeekingAge"] as? Int
         self.maxSeekingAge = dictionary["maxSeekingAge"] as? Int
+        self.bio = dictionary["bio"] as? String
         
     }
     
@@ -47,12 +49,14 @@ struct User : CardViewModelProtocol {
         let professionString = profession != nil ? "\(profession!)" : "Not Available"
         attributedText.append(NSAttributedString(string: "\n\(professionString)", attributes: [.font : UIFont.systemFont(ofSize: 14, weight: .regular)]))
         
+        let bioString = bio != nil ? "\(bio!)" : "Not Available"
+    
         var imageUrls = [String]()
         if let url = imageUrl1 { imageUrls.append(url) }
         if let url = imageUrl2 { imageUrls.append(url) }
         if let url = imageUrl3 { imageUrls.append(url) }
         
-        return CardViewModel(uid: self.uid ?? "", imageUrls: imageUrls, attributedString: attributedText, textAlignment: .left)
+        return CardViewModel(uid: self.uid ?? "", imageUrls: imageUrls, attributedString: attributedText, textAlignment: .left, bio: bioString)
         
     }
 }

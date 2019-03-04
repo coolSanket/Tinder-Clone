@@ -7,9 +7,43 @@
 //
 
 import UIKit
+import Firebase
+import SDWebImage
 
 
 class MatchView: UIView {
+    
+    var currentUser : User! {
+        didSet {
+            
+        }
+    }
+    
+    // make sure cardUID always has a value
+    var cardUID : String! {
+        didSet {
+            Firestore.firestore().collection("Users").document(cardUID).getDocument { (snapshot, error) in
+                if let error = error {
+                    print("Failed to fetch users ",error.localizedDescription)
+                    return
+                }
+                
+                guard let data =  snapshot?.data() else { return }
+                let user = User(dictionary: data)
+                guard let url = URL(string: user.imageUrl1 ?? "" ) else { return }
+                self.likedUserImageView.sd_setImage(with: url)
+                self.likedUserImageView.alpha = 1
+                
+                let message = "You and \(user.name ?? "") have \n liked each other"
+                self.descriptionLabel.text = message
+                guard let currentUserImageUrl = URL(string: self.currentUser.imageUrl1 ?? "") else { return }
+                self.currentUserImageView.sd_setImage(with: currentUserImageUrl, completed: { (_, _, _, _) in
+                    self.setupAnimation()
+                })
+                
+            }
+        }
+    }
     
     let itsMatchImageView : UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "its_match"))
@@ -20,7 +54,7 @@ class MatchView: UIView {
     
     let descriptionLabel : UILabel = {
         let label = UILabel()
-        label.text = "You and X have liked \n each other"
+        // label.text = "You and X have liked \n each other"
         label.textAlignment = .center
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 18)
@@ -39,6 +73,7 @@ class MatchView: UIView {
         let iv = UIImageView(image: #imageLiteral(resourceName: "kelly2"))
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
+        iv.alpha = 0
         return iv
     }()
     
@@ -60,11 +95,10 @@ class MatchView: UIView {
         super.init(frame: frame)
         setupBlurView()
         setupLayout()
-        
-        setupAnimation()
     }
     
     fileprivate func setupAnimation() {
+        views.forEach({$0.alpha = 1})
         let angle : CGFloat = 30 * CGFloat.pi / 180
         self.currentUserImageView.transform = CGAffineTransform(rotationAngle: -angle).concatenating(CGAffineTransform(translationX: 200, y: 0))
         
@@ -96,14 +130,20 @@ class MatchView: UIView {
         })
     }
     
+    lazy var views = [
+        itsMatchImageView,
+        descriptionLabel,
+        currentUserImageView,
+        likedUserImageView,
+        sendMessageButton,
+        keepSwippingButton
+    ]
     
     fileprivate func setupLayout() {
-        addSubview(currentUserImageView)
-        addSubview(likedUserImageView)
-        addSubview(descriptionLabel)
-        addSubview(itsMatchImageView)
-        addSubview(sendMessageButton)
-        addSubview(keepSwippingButton)
+        views.forEach { (v) in
+            addSubview(v)
+            v.alpha = 0
+        }
         
         currentUserImageView.anchor(top: nil, leading: nil, bottom: nil, trailing: centerXAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 16), size: .init(width: 140, height: 140))
         currentUserImageView.layer.cornerRadius = 140/2

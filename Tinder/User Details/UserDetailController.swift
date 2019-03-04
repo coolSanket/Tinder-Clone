@@ -15,6 +15,8 @@ class UserDetailController: UIViewController , UIScrollViewDelegate {
     
     var cardViewModel : CardViewModel! {
         didSet {
+            // var attributedString = cardViewModel.attributedString
+            bioLabel.text = cardViewModel.bio
             infoLabel.attributedText = cardViewModel.attributedString
             swipingPhotoController.cardViewModel = cardViewModel
         }
@@ -35,6 +37,13 @@ class UserDetailController: UIViewController , UIScrollViewDelegate {
     }()
     
     let infoLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Sanket Kumar 23 \nAssistant System Engineer \nSome amazig bio"
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let bioLabel : UILabel = {
         let label = UILabel()
         label.text = "Sanket Kumar 23 \nAssistant System Engineer \nSome amazig bio"
         label.numberOfLines = 0
@@ -113,6 +122,9 @@ class UserDetailController: UIViewController , UIScrollViewDelegate {
         scrollView.addSubview(swipingView)
         scrollView.addSubview(infoLabel)
         infoLabel.anchor(top: swipingView.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,padding: .init(top: 16, left: 16, bottom: 0, right: 16))
+        
+        scrollView.addSubview(bioLabel)
+        bioLabel.anchor(top: infoLabel.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor,padding: .init(top: 16, left: 16, bottom: 32, right: 16))
         
         scrollView.addSubview(dismissButton)
         dismissButton.anchor(top: nil, leading: nil, bottom: swipingView.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 0, bottom: -22, right: 16),size: CGSize(width: 44, height: 44))

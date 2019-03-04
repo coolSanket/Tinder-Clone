@@ -193,24 +193,6 @@ class CardView: UIView {
                 self.transform = .identity
             })
         }
-        
-//        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-//            if shouldDismissCard {
-//                let transX : CGFloat = translation.x > 0 ? 1000 : -1000
-//                self.frame = CGRect(x: transX, y: 0, width: self.frame.width, height: self.frame.height)
-//            }
-//            else {
-//                self.transform = .identity
-//            }
-//
-//        }) { (_) in
-//            self.transform = .identity
-//            if shouldDismissCard {
-//                self.removeFromSuperview()
-//                // reset top card view
-//                self.delegate?.didRemoveCardView(cardView: self)
-//            }
-//        }
     }
     
 }

@@ -215,9 +215,12 @@ class HomeController: UIViewController, SettingsControllerDelegate , LoginContro
     
     fileprivate func presentMatchView(cardUID : String) {
         print("Presenting match view...")
-        let redView = MatchView()
-        view.addSubview(redView)
-        redView.fillSuperview()
+        let matchView = MatchView()
+        matchView.cardUID = cardUID
+        matchView.currentUser = self.user
+        view.addSubview(matchView)
+        matchView.fillSuperview()
+        
     }
     
     @objc func handleDislike() {

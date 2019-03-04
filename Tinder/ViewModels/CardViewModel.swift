@@ -21,6 +21,7 @@ struct  CardViewModel {
     let imageUrls : [String]
     let attributedString : NSAttributedString
     let textAlignment : NSTextAlignment
+    let bio : String
     
     
 }
