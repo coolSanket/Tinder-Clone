@@ -26,8 +26,8 @@ and then step away from your phone, meet up in the real world and spark somethin
 <img src="Tinder/Screenshot/match.png">
 
 ### What i learned 
-  ### Build user interface programatically
-  ### MVVM Pattern
-  ### Firebase
-  ### custom animation
-  ### Debugging
+  * Build user interface programatically
+  * MVVM Pattern
+  * Firebase
+  * custom animation
+  * Debugging
