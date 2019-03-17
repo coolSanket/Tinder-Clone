@@ -9,22 +9,22 @@ it’s a match!
 
 
 ### Login Page
-<img src="Tinder/Screenshot/log.png">
+<img src="Tinder/Screenshot/log.png" height="700px" width="400px">
 
 ### Registration Page
-<img src="Tinder/Screenshot/reg.png">
+<img src="Tinder/Screenshot/reg.png" height="700px" width="400px">
 
 ### Home Page
-<img src="Tinder/Screenshot/home.png">
+<img src="Tinder/Screenshot/home.png" height="700px" width="400px">
 
 ### User detail Page
-<img src="Tinder/Screenshot/detail.png">
+<img src="Tinder/Screenshot/detail.png" height="700px" width="400px">
 
 ### Login user profile Page
-<img src="Tinder/Screenshot/profile.png">
+<img src="Tinder/Screenshot/profile.png" height="700px" width="400px">
 
 ### Match Page
-<img src="Tinder/Screenshot/match.png">
+<img src="Tinder/Screenshot/match.png" height="700px" width="400px">
 
 ### What i learned 
   * Build user interface programatically
